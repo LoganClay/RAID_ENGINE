@@ -1,10 +1,10 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include <iostream>
 #include <fstream>
 #include <list>
 #include <iterator>
 #include <SFML/OpenGL.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "KeyboardIn.h"
 #include "KeyboardOut.h"
 #include "Render.h"
@@ -30,7 +30,7 @@ public:
 		
 		int width = 1920, height = 1080;
 
-		bool menuBool=false;
+		bool menuBool = false;
 		bool aniChange = false;
 
 		window.create(VideoMode(width, height), "SimmerDownDaddy", Style::Titlebar | Style::Close);
@@ -67,8 +67,6 @@ public:
 				fpsCounter = 0;
 				timer = 0;		
 			}
-		
-
 
 			Event event;
 			keyboardOut->updateLastKey(keyboardIn->keyList);
