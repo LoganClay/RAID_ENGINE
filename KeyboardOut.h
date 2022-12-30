@@ -1,6 +1,6 @@
 #pragma once
 #include "KeyboardIn.h"
-#include <ioStream>
+#include <iostream>
 
 class KeyboardOut
 {

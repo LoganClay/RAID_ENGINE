@@ -1,5 +1,5 @@
 #include "KeyboardOut.h"
-#include <ioStream>
+#include <iostream>
 
 //constructor sets all values of lastFrameKeys to false as a default
 KeyboardOut::KeyboardOut() {
