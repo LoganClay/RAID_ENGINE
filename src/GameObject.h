@@ -39,16 +39,15 @@ class CloseButton : public GameObject {
 		CloseButton(Render * render);
 };
 
+// ObjectList implements a LinkedList of GameObjects
 class ObjectList {
 	public:
 		class Node {
 			public:
 				GameObject * object;
 				Node * next;
-				Node(GameObject * object) {
-					this->object = object;
-					this->next = nullptr;
-				}
+
+				Node(GameObject * object) : object(object), next(nullptr) { }
 				void setNext(Node * node) { this->next = node; }
 		};
 
@@ -57,7 +56,7 @@ class ObjectList {
 		Node * first;
 		Node * last;
 
-		ObjectList() : listSize(0), first(nullptr), last(nullptr){}
+		ObjectList() : listSize(0), first(nullptr), last(nullptr) {}
 
 		void removeObject(Node * node, Render * render);
 		void truncateObjects(Node * node);

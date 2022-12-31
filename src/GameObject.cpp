@@ -24,20 +24,23 @@ void GameObject::SetAnimation(int n) {
 	this->node->getAnimation()->setAnimation(n); 
 }
 
+/** addObject
+ * Adds a GameObject to the ObjectList instance
+ * @param object - GameObject pointer for creating the Node
+ * @returns Node * - Points to the node created to store object
+ */
 ObjectList::Node * ObjectList::addObject(GameObject * object) {
-	listSize++;
-
 	if (listSize == 0) {
 		first = new Node(object);
 		last = first;
-		return first;
 	}
 	else {
-		Node * new_node = new Node(object);
-		last->setNext(new_node);
-		last = new_node;
-		return last;
+		last = new Node(object);
+		last->setNext(last);
 	}
+
+	listSize++;
+	return last;
 }
 
 Background::Background(Render * render) {

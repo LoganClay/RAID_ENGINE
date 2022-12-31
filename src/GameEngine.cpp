@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include "glad/glad.h"
 #include "KeyboardIn.h"
@@ -29,7 +30,7 @@ void GameEngine::start(int width, int height, string title) {
 
 	// Load a basic Arial font
 	Font arial;
-	arial.loadFromFile("../fnt/arial.ttf");
+	arial.loadFromFile("fnt/arial.ttf");
 
 	// FPS Text Counter
 	int FPS = 60;
@@ -95,7 +96,6 @@ void GameEngine::start(int width, int height, string title) {
 		}
 
 		// Rendering 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		window.clear();
 
 		for (int i = 0; i < render->getSize(); i++) {
