@@ -2,26 +2,49 @@
 #include "KeyboardIn.h"
 #include <iostream>
 
-class KeyboardOut
-{
+class KeyboardOut {
+	private:
+		bool lastFrameKeys[104];
+		bool lastFrameButton[5];
 
-private:
-	bool lastFrameKeys[104];
-	bool lastFrameButton[5];
-public:
+	public:
 
-	KeyboardOut();
-	int TakeInput(bool key, int keyNum);
-	int TakeBInput(bool key, int keyNum);
-	int TakeScrollInput(int scroll);
-	bool checkPressed(bool key, int keyNum);
-	bool checkPress(bool key, int keyNum);
-	bool checkReleased(bool key, int keyNum);
-	bool checkRelease(bool key, int keyNum);
-	bool checkBPressed(bool key, int keyNum);
-	bool checkBPress(bool key, int keyNum);
-	bool checkBReleased(bool key, int keyNum);
-	bool checkBRelease(bool key, int keyNum);
-	void updateLastKey(bool keys[]);
-	void updateLastButton(bool keys[]);
+		KeyboardOut();
+
+		void updateLastKey(bool keys[]);
+		void updateLastButton(bool keys[]);
+
+		int TakeInput(bool key, int keyNum);
+		int TakeBInput(bool key, int keyNum);
+		int TakeScrollInput(int scroll);
+
+		bool checkBPressed(bool button, int buttonNum) {
+			return button && lastFrameButton[buttonNum];
+		}
+
+		bool checkBPress(bool button, int buttonNum) {
+			return button && !lastFrameButton[buttonNum];
+		}
+
+		bool checkBReleased(bool button, int buttonNum) {
+			return !button && !lastFrameButton[buttonNum];
+		}
+		bool checkBRelease(bool button, int buttonNum) {
+			return !button && lastFrameButton[buttonNum];
+		}
+
+		bool checkPressed(bool key, int keyNum) {
+			return key && lastFrameKeys[keyNum];
+		}
+
+		bool checkPress(bool key, int keyNum) {
+			return key && !lastFrameKeys[keyNum];
+		}
+
+		bool checkReleased(bool key, int keyNum) {
+			return !key && !lastFrameKeys[keyNum];
+		}
+		bool checkRelease(bool key, int keyNum) {
+			return !key && lastFrameKeys[keyNum];
+		}
 };

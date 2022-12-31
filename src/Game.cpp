@@ -6,22 +6,30 @@
 
 using namespace std;
 
+// We use macros here so if we ever need to change 
+// the defaults, they're in an obvious location!
+#define WIDTH 1920
+#define HEIGHT 1080
+#define TITLE "GameEngine"
+
 int main() {
-	//Create Engine object
+	// Create Engine object
 	GameEngine* engine = new GameEngine();
 	
-	shared_ptr<Controls> controls = engine->controls;
-	shared_ptr<ObjectList> objects = engine->objects;
-	shared_ptr<Render> render = engine->render;
-	Song* title;
+	Controls * controls = engine->controls;
+	ObjectList * objects = engine->objects;
+	Render * render = engine->render;
 
-	//load first menu
-	objects->addObject(shared_ptr<Background>(new Background(render)));
-	shared_ptr<CloseButton> temp = shared_ptr<CloseButton>(new CloseButton(render));
+	// Play the menu theme song
+	Song* title = new Song("../aud/menu_theme.wav");
+	title->play();
+
+	// Load first menu
+	objects->addObject(new Background(render));
+	CloseButton * temp = new CloseButton(render);
 	objects->addObject(temp);
-	controls->addControl(shared_ptr<CloseTrigger>(new CloseTrigger(temp)));
-	title = new Song("Music/menuTheme.wav");
+	controls->addControl(new CloseTrigger(temp));
 
-	//start the game
-	engine->start();
+	// Start the game
+	engine->start(WIDTH, HEIGHT, TITLE);
 }

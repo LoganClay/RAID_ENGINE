@@ -2,19 +2,28 @@
 #include <SFML/Window/Event.hpp>
 #include "Hitbox.h"
 
-class KeyboardIn
-{
-private:
+class KeyboardIn {
+	public:
+		bool keyList[104];
+		bool buttonList[5];
+		int mouseWheel;
+		int * mouseXPos;
+		int * mouseYPos;
+		Hitbox* mouse;
 
-public:
-	bool keyList[104];
-	bool buttonList[5];
-	int mouseWheel;
-	shared_ptr<int> mouseXPos, mouseYPos;
-	Hitbox* mouse;
-	void checkInput(sf::Event e);
-	KeyboardIn();
-	bool getKeyListAt(int i);
-	bool getButtonListAt(int i);
-	void setMouse(int x, int y);
+		KeyboardIn();
+		void checkInput(sf::Event e);
+
+		bool getKeyListAt(int i) {
+			return this->keyList[i];
+		}
+
+		bool getButtonListAt(int i) {
+			return this->buttonList[i];
+		}
+
+		void setMouse(int x, int y) {
+			(*mouseXPos) = x;
+			(*mouseYPos) = y;
+		}
 };

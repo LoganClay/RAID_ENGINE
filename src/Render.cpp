@@ -2,8 +2,8 @@
 
 Render::Render(){
 	renderSize = 0;
-	first = NULL;
-	last = NULL;
+	first = nullptr;
+	last = nullptr;
 }
 
 void Render::Animation::addAnimation(int n, int array[60][2]) {
@@ -29,16 +29,12 @@ void Render::Animation::iterate(Render::Node* node) {
 	int w = *node->w;
 	int h = *node->h;
 
-	
-
-	//cout << w*x << ", " << h*y << ", frame: " << currentFrame << endl;
 	node->sprite.setTextureRect(IntRect( w * x, h * y, w, h));
 
-	//cout << *node->x << ", " << *node->y << endl;
 	node->sprite.setPosition(*node->x, *node->y);
 }
 
-Render::Node* Render::addToRender(Sprite object, shared_ptr<int> x, shared_ptr<int> y, shared_ptr<int> w, shared_ptr<int> h) {
+Render::Node* Render::addToRender(Sprite object, int * x, int * y, int * w, int * h) {
 	if (renderSize == 0) {
 		first = new Node(object, x, y, w, h);
 		last = first;
@@ -177,17 +173,10 @@ Render::Node* Render::getLast(){
 int Render::getSize() { return this->renderSize; }
 
 
-Render::Node::Node(Sprite object, shared_ptr<int> x, shared_ptr<int> y, shared_ptr<int> w, shared_ptr<int> h){
-	this->w = w;
-	this->h = h;
-	this->x = x;
-	this->y = y;
-	sprite = object;
-	this->next = NULL;
-	this->animation = new Animation();
+Render::Node::Node(Sprite object, int * x, int * y, int * w, int * h) :
+					w(w), h(h), x(x), y(y), sprite(object), next(nullptr) {
+	animation = new Animation();
 }
-
-
 
 void Render::Node::setNext(Node *node){
 	next = node;

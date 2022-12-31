@@ -1,20 +1,23 @@
 #pragma once
 #include "Render.h"
 #include "GameObject.h"
-using namespace std;
-using namespace sf;
-class GameEngine{
-public:
-	
-	shared_ptr<KeyboardIn> keyboardIn;
-	shared_ptr<KeyboardOut> keyboardOut;
-	bool showFPS;
-	bool pause;
+#include "KeyboardIn.h"
+#include "KeyboardOut.h"
+#include "Controls.h"
 
-	shared_ptr<Render> render;
-	shared_ptr<Controls> controls;
-	shared_ptr<ObjectList> objects;
-	RenderWindow window;
+class GameEngine {
+	public:
+		KeyboardIn * keyboardIn;
+		KeyboardOut * keyboardOut;
+		Render * render;
+		Controls * controls;
+		ObjectList * objects;
 
-	void start();
+		RenderWindow window;
+
+		bool showFPS = false;
+		bool pause = false;
+
+		GameEngine();
+		void start(int w, int h, string t);
 };

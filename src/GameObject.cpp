@@ -24,27 +24,27 @@ void GameObject::SetAnimation(int n) {
 	this->node->getAnimation()->setAnimation(n); 
 }
 
-shared_ptr<ObjectList::Node> ObjectList::addObject(shared_ptr<GameObject> object) {
+ObjectList::Node * ObjectList::addObject(GameObject * object) {
 	listSize++;
 
 	if (listSize == 0) {
-		first = shared_ptr<Node>(new Node(object));
+		first = (Node *)(new Node(object));
 		last = first;
 		return first;
 	}
 	else {
-		shared_ptr<Node> new_node = shared_ptr<Node>(new Node(object));
+		Node * new_node = (Node *)(new Node(object));
 		last->setNext(new_node);
 		last = new_node;
 		return last;
 	}
 }
 
-Background::Background(shared_ptr<Render> render) {
-	spriteW =  make_shared<int>(1920);
-	spriteH = make_shared<int>(1080);
-	xPos = make_shared<int>(0);
-	yPos = make_shared<int>(0);
+Background::Background(Render * render) {
+	(*spriteW) = 1920;
+	(*spriteH) = 1080;
+	(*xPos) = 0;
+	(*yPos) = 0;
 
 	unitsW = 1;
 	unitsH = 1;
@@ -65,11 +65,11 @@ Background::Background(shared_ptr<Render> render) {
 	this->hitbox = new Hitbox(this->xPos, this->yPos, this->spriteW, this->spriteH);
 }
 
-CloseButton::CloseButton(shared_ptr<Render> render) {
-	spriteW = make_shared<int>(500);
-	spriteH = make_shared<int>(250);
-	xPos = make_shared<int>(710);
-	yPos = make_shared<int>(415);
+CloseButton::CloseButton(Render * render) {
+	(*spriteW) = 500;
+	(*spriteH) = 250;
+	(*xPos) = 710;
+	(*yPos) = 415;
 
 	unitsW = 2;
 	unitsH = 1;
@@ -93,11 +93,13 @@ CloseButton::CloseButton(shared_ptr<Render> render) {
 
 }
 
-void ObjectList::removeObject(shared_ptr<Node> node, shared_ptr<Render> render) {
+// TODO previously used shared_ptrs for everything
+// Fix to make work with regular pointers (specifically .reset())
+void ObjectList::removeObject(Node * node, Render * render) {
 	if (listSize == 0) return;
-	shared_ptr<Node> temp = first;
-	shared_ptr<Node> temp2 = last;
-	shared_ptr<Node> temp3;
+	Node * temp = first;
+	Node * temp2 = last;
+	Node * temp3;
 	for (int i = 0; i < listSize; i++) {
 		if (temp == node && i == 0) {
 			temp2 = temp->next;
@@ -125,9 +127,9 @@ void ObjectList::removeObject(shared_ptr<Node> node, shared_ptr<Render> render) 
 	listSize--;
 }
 
-void ObjectList::truncateObjects(shared_ptr<Node> node) {
-	shared_ptr<Node> temp = first;
-	shared_ptr<Node> temp2 = last;
+void ObjectList::truncateObjects(Node * node) {
+	Node * temp = first;
+	Node * temp2 = last;
 	int sizeTemp = listSize;
 	bool trunc = false;
 	for (int i = 0; i < sizeTemp; i++) {
@@ -152,8 +154,8 @@ void ObjectList::truncateObjects(shared_ptr<Node> node) {
 }
 
 void ObjectList::clearObjects() {
-	shared_ptr<Node> temp = first;
-	shared_ptr<Node> temp2 = last;
+	Node * temp = first;
+	Node * temp2 = last;
 	for (int i = 0; i < listSize; i++) {
 		temp2 = temp->next;
 		temp->object->render->removeFromRender(temp->object->node);
@@ -165,9 +167,9 @@ void ObjectList::clearObjects() {
 	listSize = 0;
 }
 
-shared_ptr<ObjectList::Node> ObjectList::getIndex(int i) {
-	if (i > listSize || i < 0)return first;
-	shared_ptr<Node> node = first;
+ObjectList::Node * ObjectList::getIndex(int i) {
+	if (i > listSize || i < 0) return first;
+	Node * node = first;
 	for (int x = 0; x < i; x++) {
 		node = node->next;
 	}

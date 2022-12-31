@@ -8,9 +8,12 @@ using namespace sf;
 class GameObject {
 	public:
 		string spriteFile;
-		shared_ptr<int> xPos, yPos; // Coordinates of object
-		shared_ptr<int> spriteH, spriteW; // Pixel dimensions of the sprites
-		int unitsH, unitsW; // Amount of sprites in the dimensions of the sheet
+		int * xPos;
+		int * yPos;
+		int * spriteH;
+		int * spriteW;
+		int unitsH;
+		int unitsW;
 
 		Hitbox* hitbox;
 
@@ -28,38 +31,38 @@ class GameObject {
 
 class Background : public GameObject {
 	public:
-		Background(shared_ptr<Render> render);
+		Background(Render * render);
 };
 
 class CloseButton : public GameObject {
 	public:
-		CloseButton(shared_ptr<Render> render);
+		CloseButton(Render * render);
 };
 
 class ObjectList {
 	public:
 		class Node {
 			public:
-				shared_ptr<GameObject> object;
-				shared_ptr<Node> next;
-				Node(shared_ptr<GameObject> object) {
+				GameObject * object;
+				Node * next;
+				Node(GameObject * object) {
 					this->object = object;
 					this->next = nullptr;
 				}
-				void setNext(shared_ptr<Node> node) { this->next = node; }
+				void setNext(Node * node) { this->next = node; }
 		};
 
 		int listSize;
 
-		shared_ptr<Node> first;
-		shared_ptr<Node> last;
+		Node * first;
+		Node * last;
 
 		ObjectList() : listSize(0), first(nullptr), last(nullptr){}
 
-		void removeObject(shared_ptr<Node> node, shared_ptr<Render> render);
-		void truncateObjects(shared_ptr<Node> node);
+		void removeObject(Node * node, Render * render);
+		void truncateObjects(Node * node);
 		void clearObjects();
-		shared_ptr<Node> addObject(shared_ptr<GameObject> object);
-		shared_ptr<Node> getIndex(int i);
+		Node * addObject(GameObject * object);
+		Node * getIndex(int i);
 };
 

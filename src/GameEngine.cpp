@@ -1,7 +1,4 @@
 #include <iostream>
-#include <fstream>
-#include <list>
-#include <iterator>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "glad/glad.h"
@@ -12,64 +9,63 @@
 #include "GameObject.h"
 
 using namespace std;
-using namespace sf;
-class GameEngine{
-public:
-	
-	shared_ptr<KeyboardIn> keyboardIn = shared_ptr<KeyboardIn>(new KeyboardIn());
-	shared_ptr<KeyboardOut> keyboardOut = shared_ptr<KeyboardOut>(new KeyboardOut());
-	bool showFPS = false;
-	bool pause = false;
 
-	shared_ptr<Render> render = shared_ptr<Render>(new Render());
-	shared_ptr<Controls> controls = shared_ptr<Controls>(new Controls());
-	shared_ptr<ObjectList> objects = shared_ptr<ObjectList>(new ObjectList());
-	RenderWindow window;
+// Initialize all the member variables
+GameEngine::GameEngine() {
+	keyboardIn = (KeyboardIn *)(new KeyboardIn());
+	keyboardOut = (KeyboardOut *)(new KeyboardOut());
+	render = (Render *)(new Render());
+	controls = (Controls *)(new Controls());
+	objects = (ObjectList *)(new ObjectList());
+}
 
-	void start() {
-		
-		int width = 1920, height = 1080;
+// Basically the entire game loop
+void GameEngine::start(int width, int height, string title) {
+	// Create window + settings
+	window.create(VideoMode(width, height), title, Style::Titlebar | Style::Close);
+	window.setVerticalSyncEnabled(true);
+	window.setActive(true);
 
-		window.create(VideoMode(width, height), "SimmerDownDaddy", Style::Titlebar | Style::Close);
-		window.setVerticalSyncEnabled(true);
-		window.setActive(true);
+	// Load a basic Arial font
+	Font arial;
+	arial.loadFromFile("../fnt/arial.ttf");
 
-		Font arial;
-		arial.loadFromFile("Fonts/arial.ttf");
+	// FPS Text Counter
+	int FPS = 60;
+	Text fpsText;
+	fpsText.setFont(arial);
+	fpsText.setCharacterSize(24);
+	fpsText.setFillColor(sf::Color::Yellow);
+	fpsText.setString("FPS: " + to_string(FPS));
 
-		int FPS = 60;
-		Text fps;
-		fps.setFont(arial);
-		fps.setCharacterSize(24);
-		fps.setFillColor(sf::Color::Yellow);
-		fps.setString("FPS: " + to_string(FPS));
+	// Used to calculate the FPS
+	sf::Clock clock;
+	float timer = 0;
+	int fpsCounter = 0;
 
-		sf::Clock clock;
-		float timer = 0;
-		int fpsCounter = 0;
+	// Game loop
+	while (window.isOpen()) {
+		fpsCounter++;
+		sf::Time elapsed = clock.restart();
+		timer += elapsed.asSeconds();
+		if (timer > 0) {
+			FPS = fpsCounter;
+			fpsCounter = 0;
+			timer = 0;		
+		}
 
-		while (window.isOpen()) {
-			fpsCounter++;
-			sf::Time elapsed = clock.restart();
-			//std::cout << elapsed.asSeconds() << " time elapsed since last check" << std::endl;
-			timer += elapsed.asSeconds();
-			if (timer >= 1) {
-				//cout << timer << " time elapsed since last check" << endl;
-				FPS = fpsCounter;
-				fpsCounter = 0;
-				timer = 0;		
-			}
+		// Event polling
+		Event event;
+		keyboardOut->updateLastKey(keyboardIn->keyList);
+		keyboardOut->updateLastButton(keyboardIn->buttonList);
+		keyboardIn->mouseWheel = 0;
 
-			Event event;
-			keyboardOut->updateLastKey(keyboardIn->keyList);
-			keyboardOut->updateLastButton(keyboardIn->buttonList);
-			keyboardIn->mouseWheel = 0;
-			while (window.pollEvent(event)) {
-				switch (event.type) {
+		while (window.pollEvent(event)) {
+			switch (event.type) {
 				case Event::Closed:
 					window.close();
 					break;
-					//Input Handling
+				//Input Handling
 				case Event::KeyPressed:
 				case Event::KeyReleased:
 				case Event::MouseButtonPressed:
@@ -79,33 +75,37 @@ public:
 					break;
 				case Event::MouseMoved:
 					keyboardIn->setMouse(event.mouseMove.x,event.mouseMove.y);
-					//std::cout << "Mouse X: " << *keyboardIn.mouseXPos << " Mouse Y: " << *keyboardIn.mouseYPos << std::endl;
 					break;
 				case sf::Event::Resized:
 					glViewport(0, 0, event.size.width, event.size.height);
 					break;
 				default:
 					break;
-				}
 			}
-
-			//Doing Controls
-			for (int i = 0; i < controls->controlsSize; i++) {
-				shared_ptr<Control> temp = controls->getIndex(i)->control;
-				if (temp->trigger(keyboardIn, keyboardOut)) temp->event(this);
-			}
-			//rendering 
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
-			window.clear();
-			for (int i = 0; i < render->getSize(); i++) {
-				window.draw(render->getIndex(i)->sprite);
-					if (!pause) render->getIndex(i)->iterate();
-			}
-			fps.setString("FPS: " + std::to_string(FPS));
-			if (showFPS)window.draw(fps);
-
-			window.display();
 		}
+
+		// Doing Controls
+		for (int i = 0; i < controls->controlsSize; i++) {
+			Control * temp = controls->getIndex(i)->control;
+
+			if (temp->trigger(keyboardIn, keyboardOut)) {
+				temp->event(this);
+			}
+		}
+
+		// Rendering 
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		window.clear();
+
+		for (int i = 0; i < render->getSize(); i++) {
+			window.draw(render->getIndex(i)->sprite);
+			if (!pause) { render->getIndex(i)->iterate(); }
+		}
+
+		// Show FPS on screen
+		fpsText.setString("FPS: " + std::to_string(FPS));
+		if (showFPS) { window.draw(fpsText); }
+
+		window.display();
 	}
-};
+}

@@ -1,21 +1,23 @@
 #pragma once
-#include <iostream>
 
-using namespace std;
+class Hitbox {
+	public:
+		int * x;
+		int * y;
+		int * w;
+		int * h;
 
-class Hitbox
-{
-public:
-	shared_ptr<int> x, y;
-	shared_ptr<int> w, h;
+		Hitbox(int * x, int * y, int * h, int * w) : x(x), y(y), w(w), h(h) {};
 
-	Hitbox(shared_ptr<int> x, shared_ptr<int> y, shared_ptr<int> h, shared_ptr<int> w);
+		bool detect(Hitbox* box) {
+			return ((*this->x < *box->x + *box->w) && 
+					(*this->x + *this->w > *box->x) && 
+					(*this->y < *box->y + *box->h) && 
+					(*this->y + *this->h > *box->y));
+		}
 
-	bool detect( Hitbox* box );
-	
-	void setX(shared_ptr<int> x);
-	void setY(shared_ptr<int> y);
-	void setW(shared_ptr<int> h);
-	void setH(shared_ptr<int> w);
+		void setX(int * x) { this->x = x; }
+		void setY(int * y) { this->y = y; }
+		void setW(int * h) { this->h = h; }
+		void setH(int * w) { this->w = w; }
 };
-
