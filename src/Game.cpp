@@ -20,7 +20,7 @@ int main() {
 	shared_ptr<CloseButton> temp = shared_ptr<CloseButton>(new CloseButton(render));
 	objects->addObject(temp);
 	controls->addControl(shared_ptr<CloseTrigger>(new CloseTrigger(temp)));
-	title = new Song("Music/menuTheme.wav", 25.0f);
+	title = new Song("Music/menuTheme.wav");
 
 	//start the game
 	engine->start();
