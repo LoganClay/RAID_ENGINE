@@ -1,5 +1,6 @@
-engineFiles := Controls.cpp Game.cpp GameEngine.cpp GameObject.cpp Hitbox.cpp KeyboardIn.cpp KeyboardOut.cpp Render.cpp Sound.cpp
-externFiles := glad.c
+engineHFiles := src/Controls.h src/GameObject.h src/Hitbox.h src/KeyboardIn.h src/KeyboardOut.h src/Render.h src/Sound.h
+engineCPPFiles := src/Controls.cpp src/Game.cpp src/GameEngine.cpp src/GameObject.cpp src/Hitbox.cpp src/KeyboardIn.cpp src/KeyboardOut.cpp src/Render.cpp src/Sound.cpp
+externFiles := src/glad.c
 
-run: $(engineFiles)
-	g++ $(engineFiles) $(externFiles) -o run -Wall -std=c++17 -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -I./glad/include/
+run: $(engineCPPFiles) $(engineHFiles)
+	g++ $(engineCPPFiles) $(externFiles) -o run -Wall -std=c++17 -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -I./include/
