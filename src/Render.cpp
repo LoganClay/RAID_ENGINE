@@ -25,7 +25,7 @@ void Render::Animation::iterate(Render::Node* node) {
 	else { currentFrame = 0; }
 	
 	int x = animationPatterns[this->currentAnimation][currentFrame][0];
-	int	y = animationPatterns[this->currentAnimation][currentFrame][1];
+	int y = animationPatterns[this->currentAnimation][currentFrame][1];
 	int w = *node->w;
 	int h = *node->h;
 
