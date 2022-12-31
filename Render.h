@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics.hpp>
 
 using namespace sf;
 using namespace std;
@@ -53,6 +53,7 @@ public:
 	Render::Node* getIndex(int i);
 	Render::Node* getFirst();
 	Render::Node* getLast();
+	void renderAll(RenderWindow* window);
 	int getSize();
 
 

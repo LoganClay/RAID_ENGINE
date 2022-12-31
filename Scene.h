@@ -1,3 +1,4 @@
+#pragma once
 #include "Controls.cpp"
 #include "Sound.h"
 

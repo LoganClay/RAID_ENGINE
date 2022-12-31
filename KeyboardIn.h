@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Window/Event.hpp>
 #include "Hitbox.h"
+#include <iostream>
 
 class KeyboardIn
 {

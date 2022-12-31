@@ -110,6 +110,14 @@ public:
 			}
 		}
 	}
+	void triggerAll(shared_ptr<KeyboardIn> keyboardIn, shared_ptr<KeyboardOut> keyboardOut, GameEngine* g) {
+		shared_ptr<Node> temp = first;
+		for (int i = 0; i < this->controlsSize; i++) {
+			if (temp == nullptr)break;
+			if (temp->control->trigger(keyboardIn, keyboardOut)) temp->control->event(g);
+			temp = temp->next;
+		}
+	}
 	void clearControls() {
 		shared_ptr<Node> temp = first;
 		shared_ptr<Node> temp2 = last;

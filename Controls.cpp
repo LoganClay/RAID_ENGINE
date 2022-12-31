@@ -1,4 +1,5 @@
-#include "GameEngine.cpp"
+#pragma once
+#include "GameEngine.h"
 
 //Template
 /*
@@ -40,6 +41,6 @@ public:
 	}
 
 	void event(GameEngine* g) {
-		g->window.close();
+		g->window->close();
 	}
 };

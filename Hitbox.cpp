@@ -1,3 +1,4 @@
+#pragma once
 #include "Hitbox.h"
 
 using namespace std;

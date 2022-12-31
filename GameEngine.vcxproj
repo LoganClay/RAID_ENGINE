@@ -158,6 +158,7 @@
   <ItemGroup>
     <ClInclude Include="Controls.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameEngine.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Hitbox.h" />
     <ClInclude Include="KeyboardIn.h" />

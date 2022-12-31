@@ -1,3 +1,4 @@
+#pragma once
 #include "Render.h"
 
 Render::Render(){
@@ -186,7 +187,20 @@ Render::Node::Node(Sprite object, shared_ptr<int> x, shared_ptr<int> y, shared_p
 	this->next = NULL;
 	this->animation = new Animation();
 }
+void Render::renderAll(RenderWindow* window) {
+	Node* temp = first;
+	for (int i = 0; i < this->renderSize; i++) {
+		try {
+			temp->iterate();
+			window->draw(temp->sprite);
+			temp = temp->next;
+		}
+		catch (exception e) {
+			cout << "you suck eat a dic" << endl;
 
+		}
+	}
+}
 
 
 void Render::Node::setNext(Node *node){

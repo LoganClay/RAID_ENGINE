@@ -1,6 +1,6 @@
-#include <SFML/Window/Event.hpp>
+#pragma once
 #include "KeyboardIn.h"
-#include <iostream>
+
 
 void KeyboardIn::checkInput(sf::Event e)
 {
