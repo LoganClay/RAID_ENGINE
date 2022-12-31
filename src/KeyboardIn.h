@@ -7,8 +7,8 @@ class KeyboardIn {
 		bool keyList[104];
 		bool buttonList[5];
 		int mouseWheel;
-		int * mouseXPos;
-		int * mouseYPos;
+		int mouseXPos;
+		int mouseYPos;
 		Hitbox* mouse;
 
 		KeyboardIn();
@@ -23,7 +23,7 @@ class KeyboardIn {
 		}
 
 		void setMouse(int x, int y) {
-			(*mouseXPos) = x;
-			(*mouseYPos) = y;
+			mouseXPos = x;
+			mouseYPos = y;
 		}
 };

@@ -36,7 +36,7 @@ KeyboardIn::KeyboardIn() {
 	}
 
 	mouseWheel = 0;
-	mouseXPos = (int *)(new int (0));
-	mouseYPos = (int *)(new int (0));
-	mouse = new Hitbox(mouseXPos, mouseYPos, (int *)(new int (1)), (int *)(new int (1)));
+	mouseXPos = 0;
+	mouseYPos = 0;
+	mouse = new Hitbox(mouseXPos, mouseYPos, 1, 1);
 }

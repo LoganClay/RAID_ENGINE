@@ -26,15 +26,15 @@ void Render::Animation::iterate(Render::Node* node) {
 	
 	int x = animationPatterns[this->currentAnimation][currentFrame][0];
 	int y = animationPatterns[this->currentAnimation][currentFrame][1];
-	int w = *node->w;
-	int h = *node->h;
+	int w = node->w;
+	int h = node->h;
 
 	node->sprite.setTextureRect(IntRect( w * x, h * y, w, h));
 
-	node->sprite.setPosition(*node->x, *node->y);
+	node->sprite.setPosition(node->x, node->y);
 }
 
-Render::Node* Render::addToRender(Sprite object, int * x, int * y, int * w, int * h) {
+Render::Node* Render::addToRender(Sprite object, int x, int y, int w, int h) {
 	if (renderSize == 0) {
 		first = new Node(object, x, y, w, h);
 		last = first;
@@ -99,7 +99,7 @@ void Render::truncateRender(Sprite object){
 	Node* temp = first;
 	Node* temp2 = last;
 	int sizeTemp = renderSize;
-	bool trunc=false;
+	bool trunc = false;
 	for (int i = 0; i < sizeTemp; i++) {
 		if (trunc) {
 			temp2 = temp->next;
@@ -173,7 +173,7 @@ Render::Node* Render::getLast(){
 int Render::getSize() { return this->renderSize; }
 
 
-Render::Node::Node(Sprite object, int * x, int * y, int * w, int * h) :
+Render::Node::Node(Sprite object, int x, int y, int w, int h) :
 					sprite(object), next(nullptr), w(w), h(h), x(x), y(y) {
 	animation = new Animation();
 }

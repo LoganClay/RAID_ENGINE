@@ -8,10 +8,10 @@ using namespace sf;
 class GameObject {
 	public:
 		string spriteFile;
-		int * xPos;
-		int * yPos;
-		int * spriteH;
-		int * spriteW;
+		int xPos;
+		int yPos;
+		int spriteH;
+		int spriteW;
 		int unitsH;
 		int unitsW;
 

@@ -8,3 +8,8 @@ src/*.vxcproj.*
 Debug/
 Release/
 
+# Mac files :// sorry guys
+.DS_Store
+
+# Run file itself
+run.exe

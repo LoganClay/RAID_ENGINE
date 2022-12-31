@@ -28,12 +28,12 @@ ObjectList::Node * ObjectList::addObject(GameObject * object) {
 	listSize++;
 
 	if (listSize == 0) {
-		first = (Node *)(new Node(object));
+		first = new Node(object);
 		last = first;
 		return first;
 	}
 	else {
-		Node * new_node = (Node *)(new Node(object));
+		Node * new_node = new Node(object);
 		last->setNext(new_node);
 		last = new_node;
 		return last;
@@ -41,15 +41,15 @@ ObjectList::Node * ObjectList::addObject(GameObject * object) {
 }
 
 Background::Background(Render * render) {
-	(*spriteW) = 1920;
-	(*spriteH) = 1080;
-	(*xPos) = 0;
-	(*yPos) = 0;
+	spriteW = 1920;
+	spriteH = 1080;
+	xPos = 0;
+	yPos = 0;
 
 	unitsW = 1;
 	unitsH = 1;
 
-	texture.loadFromFile("../img/bg.jpg", IntRect(0, 0, 1920, 1080));
+	texture.loadFromFile("img/bg.jpg", IntRect(0, 0, 1920, 1080));
 	Sprite sprite = Sprite(texture);
 
 	node = render->addToRender(sprite, xPos, yPos, spriteW, spriteH);
@@ -66,15 +66,15 @@ Background::Background(Render * render) {
 }
 
 CloseButton::CloseButton(Render * render) {
-	(*spriteW) = 500;
-	(*spriteH) = 250;
-	(*xPos) = 710;
-	(*yPos) = 415;
+	spriteW = 500;
+	spriteH = 250;
+	xPos = 710;
+	yPos = 415;
 
 	unitsW = 2;
 	unitsH = 1;
 
-	texture.loadFromFile("../img/close.png", IntRect(0, 0, 1920, 1080));
+	texture.loadFromFile("img/close.png", IntRect(0, 0, 1920, 1080));
 	Sprite sprite = Sprite(texture);
 
 	node = render->addToRender(sprite, xPos, yPos, spriteW, spriteH);

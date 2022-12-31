@@ -29,9 +29,13 @@ int main() {
 
 	// Load first menu
 	objects->addObject(new Background(render));
+	cout << "Got to mark 2\n";
 	CloseButton * temp = new CloseButton(render);
+	cout << "Got to mark 3\n";
 	objects->addObject(temp);
+	cout << "Got to mark 4\n";
 	controls->addControl(new CloseTrigger(temp));
+	cout << "Got to mark 5\n";
 
 	// Start the game
 	engine->start(WIDTH, HEIGHT, TITLE);
