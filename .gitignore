@@ -1,0 +1,10 @@
+# Ignore all vscode project files
+*.vxcproj
+*.vxcproj.*
+src/*.vxcproj
+src/*.vxcproj.*
+
+# Other folders made by Vscode or something
+Debug/
+Release/
+

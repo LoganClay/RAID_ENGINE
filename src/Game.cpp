@@ -21,6 +21,9 @@ int main() {
 	Render * render = engine->render;
 
 	// Play the menu theme song
+	// This took me a while to debug -- when you're
+	// sourcing files, mamke sure to do it from the
+	// perspective of where the "run" file will end up
 	Song * title = new Song("aud/menu_theme.wav");
 	title->play();
 
