@@ -1,4 +1,5 @@
 #pragma once
+#include "KeyboardIn.h"
 #include "KeyboardOut.h"
 #include "GameObject.h"
 
@@ -9,7 +10,7 @@ class Control {
 		virtual bool trigger(KeyboardIn * mouse,
 							KeyboardOut * keys) = 0;
 
-		virtual void event(GameEngine* g) = 0;
+		virtual void event(RenderWindow * window) = 0;
 };
 
 class Node {
@@ -41,5 +42,5 @@ class CloseTrigger : public Control {
 		CloseButton * button;
 		CloseTrigger(CloseButton * b) : button(b) {}
 		bool trigger(KeyboardIn * mouse, KeyboardOut * keys);
-		void event(GameEngine* g);
+		void event(RenderWindow * window);
 };

@@ -1,4 +1,4 @@
-#include <thread>
+#include <iostream>
 #include "Sound.h"
 #include "Controls.h"
 #include "GameEngine.h"
@@ -21,7 +21,7 @@ int main() {
 	Render * render = engine->render;
 
 	// Play the menu theme song
-	Song* title = new Song("../aud/menu_theme.wav");
+	Song * title = new Song("aud/menu_theme.wav");
 	title->play();
 
 	// Load first menu

@@ -104,21 +104,21 @@ void ObjectList::removeObject(Node * node, Render * render) {
 		if (temp == node && i == 0) {
 			temp2 = temp->next;
 			render->removeFromRender(node->object->node);
-			temp.reset();
+			delete temp;
 			first = temp2;
 			break;
 		}
 		else if (temp == node && node == last) {
 			last = temp2;
 			render->removeFromRender(node->object->node);
-			temp.reset();
+			delete temp;
 			break;
 		}
 		else if (temp == node) {
 			temp3 = temp->next;
 			temp2->setNext(temp3);
 			render->removeFromRender(node->object->node);
-			temp.reset();
+			delete temp;
 			break;
 		}
 		temp2 = temp;
@@ -136,7 +136,7 @@ void ObjectList::truncateObjects(Node * node) {
 		if (trunc) {
 			temp2 = temp->next;
 			temp->object->render->removeFromRender(temp->object->node);
-			temp.reset();
+			delete temp;
 			temp = temp2;
 			listSize--;
 		}
@@ -159,7 +159,7 @@ void ObjectList::clearObjects() {
 	for (int i = 0; i < listSize; i++) {
 		temp2 = temp->next;
 		temp->object->render->removeFromRender(temp->object->node);
-		temp.reset();
+		delete temp;
 		temp = temp2;
 	}
 	first = nullptr;

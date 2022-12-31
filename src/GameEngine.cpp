@@ -7,16 +7,17 @@
 #include "Render.h"
 #include "Controls.h"
 #include "GameObject.h"
+#include "GameEngine.h"
 
 using namespace std;
 
 // Initialize all the member variables
 GameEngine::GameEngine() {
-	keyboardIn = (KeyboardIn *)(new KeyboardIn());
-	keyboardOut = (KeyboardOut *)(new KeyboardOut());
-	render = (Render *)(new Render());
-	controls = (Controls *)(new Controls());
-	objects = (ObjectList *)(new ObjectList());
+	keyboardIn = new KeyboardIn();
+	keyboardOut = new KeyboardOut();
+	render = new Render();
+	controls = new Controls();
+	objects = new ObjectList();
 }
 
 // Basically the entire game loop
@@ -89,7 +90,7 @@ void GameEngine::start(int width, int height, string title) {
 			Control * temp = controls->getIndex(i)->control;
 
 			if (temp->trigger(keyboardIn, keyboardOut)) {
-				temp->event(this);
+				temp->event(&window);
 			}
 		}
 

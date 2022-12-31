@@ -1,5 +1,4 @@
 #include <iostream>
-#include <memory>
 #include "Controls.h"
 #include "KeyboardOut.h"
 #include "GameObject.h"
@@ -15,13 +14,13 @@ void Node::setNext(Node * n) {
 
 Node * Controls::addControl(Control * c) {
 	if (controlsSize == 0) {
-		first =(Node *)(new Node(c));
+		first = new Node(c);
 		last = first;
 		controlsSize++;
 		return first;
 	}
 	else {
-		Node * new_node = (Node *)(new Node(c));
+		Node * new_node = new Node(c);
 		last->setNext(new_node);
 		last = new_node;
 		controlsSize++;
@@ -42,25 +41,19 @@ void Controls::removeControl(Node * node) {
 	for (int i = 0; i < controlsSize; i++) {
 		if (temp == node && i == 0) {
 			temp2 = temp->next;
-			int n = temp.use_count();
-			for (int x = 0; x < n; x++)
-				temp.reset();
+			delete temp;
 			first = temp2;
 			break;
 		}
 		else if (temp == node && i == controlsSize) {
-			int n = temp.use_count();
-			for(int x=0;x<n;x++)
-				temp.reset();
+			delete temp;
 			last = temp2;
 			break;
 		}
 		else if (temp == node) {
 			temp3 = temp->next;
 			temp2->setNext(temp3);
-			int n = temp.use_count();
-			for (int x = 0; x < n; x++)
-				temp.reset();
+			delete temp;
 			break;
 		}
 		temp2 = temp;
@@ -77,9 +70,7 @@ void Controls::truncateControls(Node * node) {
 	for (int i = 0; i < sizeTemp; i++) {
 		if (trunc) {
 			temp2 = temp->next;
-			int n = temp.use_count();
-			for (int x = 0; x < n; x++)
-				temp.reset();
+			delete temp;
 			temp = temp2;
 			controlsSize--;
 		}
@@ -87,7 +78,7 @@ void Controls::truncateControls(Node * node) {
 			temp2 = temp;
 			temp = temp->next;
 		}
-		if (trunc == false && temp == node) {
+		if (!trunc && temp == node) {
 			trunc = true;
 			temp2->setNext(nullptr);
 			last = temp2;
@@ -97,14 +88,16 @@ void Controls::truncateControls(Node * node) {
 
 void Controls::clearControls() {
 	Node * temp = first;
-	Node * temp2 = last;
+
 	for (int i = 0; i < controlsSize; i++) {
-		temp2 = temp->next;
-		int n = temp.use_count();
-		for (int x = 0; x < n; x++)
-			temp.reset();
+		Node * temp2 = temp->next;
+
+		// TODO this (and other lines that look like it) may cause problems
+		delete temp;
+
 		temp = temp2;
 	}
+
 	first = nullptr;
 	last = nullptr;
 	controlsSize = 0;
@@ -136,6 +129,6 @@ bool CloseTrigger::trigger(KeyboardIn * mouse, KeyboardOut * keys) {
 	return false;
 }
 
-void CloseTrigger::event(GameEngine* g) {
-	g->window.close();
+void CloseTrigger::event(RenderWindow * window) {
+	window->close();
 }

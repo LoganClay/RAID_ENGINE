@@ -174,7 +174,7 @@ int Render::getSize() { return this->renderSize; }
 
 
 Render::Node::Node(Sprite object, int * x, int * y, int * w, int * h) :
-					w(w), h(h), x(x), y(y), sprite(object), next(nullptr) {
+					sprite(object), next(nullptr), w(w), h(h), x(x), y(y) {
 	animation = new Animation();
 }
 

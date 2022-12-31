@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Audio.hpp>
-#include <iostream>
-#include <string>
+#include <SFML/Audio/Music.hpp>
+#include <SFML/Audio/Sound.hpp>
 
 using namespace sf;
 using std::string;
